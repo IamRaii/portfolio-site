@@ -159,7 +159,7 @@ export default function Contact() {
                 </button>
 
                 <p className="font-mono text-xs text-stone-600 text-center">
-                  // No spam. No marketing. Just project conversations.
+                  No spam. No marketing. Just project conversations.
                 </p>
               </form>
             )}

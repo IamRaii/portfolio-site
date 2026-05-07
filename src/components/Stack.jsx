@@ -45,7 +45,7 @@ export default function Stack() {
 
         {/* Learning note */}
         <p className="mt-10 text-stone-600 font-mono text-xs text-right tracking-wider">
-          // continuously expanding — currently exploring React and Tailwind CSS
+          continuously expanding — currently exploring React and Tailwind CSS
         </p>
       </div>
     </section>

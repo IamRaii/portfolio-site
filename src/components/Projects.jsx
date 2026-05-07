@@ -65,7 +65,7 @@ function ProjectCard({ project }) {
               aria-label="No preview available"
             >
               <span className="font-mono text-xs text-stone-700 tracking-wider">
-                // no preview
+                no preview
               </span>
             </div>
           )}
@@ -133,7 +133,7 @@ function ProjectCard({ project }) {
             <p className="font-mono text-xs text-stone-600 uppercase tracking-wider mb-4">
               Key Features
             </p>
-            <ul className="space-y-3" role="list">
+            <ul className="space-y-3">
               {project.features.map((f) => (
                 <li key={f} className="flex items-start gap-3 text-sm text-stone-400">
                   <span className="text-accent-glow mt-0.5 text-xs flex-shrink-0" aria-hidden="true">
@@ -148,7 +148,7 @@ function ProjectCard({ project }) {
             <p className="font-mono text-xs text-stone-600 uppercase tracking-wider mb-4">
               Technical Highlights
             </p>
-            <ul className="space-y-3" role="list">
+            <ul className="space-y-3">
               {project.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
                   <span className="text-accent-glow mt-0.5 text-xs flex-shrink-0" aria-hidden="true">

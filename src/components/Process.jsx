@@ -55,7 +55,7 @@ export default function Process() {
         {/* Philosophy note */}
         <div className="mt-12 border border-wire p-6 bg-ink-900">
           <p className="font-mono text-xs text-stone-500 leading-relaxed">
-            <span className="text-accent-glow">// note:</span> This process isn't rigid. Every project has different constraints. What stays constant is the order of thinking — design decisions before development decisions, always.
+            <span className="text-accent-glow"> note:</span> This process isn't rigid. Every project has different constraints. What stays constant is the order of thinking — design decisions before development decisions, always.
           </p>
         </div>
       </div>
