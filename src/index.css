@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background-color: #070809;
+    color: #c2c8cf;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  ::selection { background: #5a9e88; color: #070809; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #0d0f11; }
+  ::-webkit-scrollbar-thumb { background: #252a2f; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #5a9e88; }
+}
+
+@layer components {
+  .section-label {
+    @apply font-mono text-xs tracking-[0.2em] uppercase text-accent-glow;
+  }
+  .section-title {
+    @apply font-display font-bold text-stone-200 leading-tight;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-accent text-ink-950 font-display font-semibold text-sm tracking-wide transition-all duration-200 hover:bg-accent-dim hover:gap-3;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-wire text-stone-300 font-display font-medium text-sm tracking-wide transition-all duration-200 hover:border-accent-dim hover:text-accent;
+  }
+  .card {
+    @apply bg-ink-800 border border-wire p-6 transition-all duration-300 hover:border-ink-500;
+  }
+  .tag {
+    @apply font-mono text-xs px-2 py-1 bg-ink-700 text-stone-400 border border-wire;
+  }
+}
+
+@layer utilities {
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
