@@ -1,188 +1,159 @@
 import { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { projects } from "../data/portfolio";
 import { useScrollReveal } from "../hooks/useScrollReveal";
-import { FeaturedImage, ThumbnailStrip } from "./ProjectImage";
+import { ImageGallery } from "./ProjectImage";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ProjectCard
-// ─────────────────────────────────────────────────────────────────────────────
-// Layout:
-//   Desktop (lg+): Two-column — Image left | Description right
-//   Mobile:        Stacked   — Image top  | Description below
-//
-// Each card has an expandable "Details" section showing features + highlights.
-// ─────────────────────────────────────────────────────────────────────────────
 function ProjectCard({ project }) {
   const [expanded, setExpanded] = useState(false);
-  const ref = useScrollReveal();
+  const { ref, revealed } = useScrollReveal();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
     <article
       ref={ref}
-      className="fade-up border border-wire bg-ink-800 hover:border-ink-500 transition-colors duration-300"
+      className={`${revealed ? "fade-up visible" : "fade-up"} rounded-xl overflow-hidden border transition-all duration-200
+        ${isDark
+          ? "border-wire bg-ink-800 hover:border-ink-500"
+          : "border-wire-light bg-white hover:border-neutral-300 hover:shadow-md"}`}
       aria-label={`Project: ${project.title}`}
     >
-      {/* ── TOP META BAR ──────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between px-6 py-3 border-b border-wire">
-        <span className="font-mono text-xs text-stone-600 tracking-widest">
+      {/* Meta bar */}
+      <div className={`flex items-center justify-between px-6 py-3 border-b
+        ${isDark ? "border-wire" : "border-wire-light"}`}>
+        <span className={`font-mono text-[11px] tracking-widest
+          ${isDark ? "text-neutral-700" : "text-neutral-400"}`}>
           {project.id}
         </span>
         <span className="tag">{project.category}</span>
       </div>
 
-      {/* ── MAIN CONTENT: two-column on desktop, stacked on mobile ────────── */}
-      <div className="lg:grid lg:grid-cols-[1fr_1fr] lg:divide-x lg:divide-wire">
+      {/* Two-column */}
+      <div className={`lg:grid lg:grid-cols-[1fr_1fr] lg:divide-x
+        ${isDark ? "lg:divide-wire" : "lg:divide-wire-light"}`}>
 
-        {/* LEFT COLUMN — Visual preview */}
-        {/* ─────────────────────────────────────────────────────────────────
-            IMAGES COLUMN
-            Images are loaded from: /public/images/projects/
-            To swap in your own screenshots:
-              1. Drop your .png/.jpg files into /public/images/projects/
-              2. Update the filenames in src/data/portfolio.js
-              3. Done — no changes needed here.
-        ───────────────────────────────────────────────────────────────── */}
-        <div className="flex flex-col border-b border-wire lg:border-b-0">
-
-          {/* Featured image — always present, always first */}
-          {project.images && project.images.length > 0 && (
-            <FeaturedImage
-              image={project.images[0]}
-              projectTitle={project.title}
-            />
-          )}
-
-          {/* Thumbnail strip — renders only if project has 2+ images */}
-          {project.images && project.images.length > 1 && (
-            <ThumbnailStrip images={project.images} />
-          )}
-
-          {/* Fallback — shown if images array is empty or missing */}
-          {(!project.images || project.images.length === 0) && (
-            <div
-              className="w-full flex items-center justify-center bg-ink-900 border-b border-wire"
-              style={{ aspectRatio: "16 / 9" }}
-              aria-label="No preview available"
-            >
-              <span className="font-mono text-xs text-stone-700 tracking-wider">
-                no preview
+        {/* LEFT — gallery */}
+        <div className={`border-b lg:border-b-0 ${isDark ? "border-wire" : "border-wire-light"}`}>
+          {project.images?.length > 0 ? (
+            <ImageGallery images={project.images} projectTitle={project.title} />
+          ) : (
+            <div className={`w-full flex items-center justify-center ${isDark ? "bg-ink-900" : "bg-paper-100"}`}
+                 style={{ aspectRatio: "16/9" }}>
+              <span className={`font-mono text-xs ${isDark ? "text-neutral-700" : "text-neutral-300"}`}>
+                No preview available
               </span>
             </div>
           )}
         </div>
 
-        {/* RIGHT COLUMN — Project description */}
+        {/* RIGHT — description */}
         <div className="flex flex-col">
 
-          {/* Title + stack */}
-          <div className="p-6 lg:p-8 border-b border-wire">
-            <h3 className="font-display font-bold text-stone-200 text-xl lg:text-2xl mb-5 leading-snug">
+          {/* Title block */}
+          <div className={`p-6 lg:p-8 border-b ${isDark ? "border-wire" : "border-wire-light"}`}>
+            <h3 className={`font-semibold text-xl tracking-tight leading-snug mb-1
+              ${isDark ? "text-neutral-100" : "text-neutral-900"}`}>
               {project.title}
             </h3>
-            {/* Tech stack tags */}
-            <div className="flex flex-wrap gap-2" role="list" aria-label="Technology stack">
+            {project.subtitle && (
+              <p className={`text-sm mb-5 ${isDark ? "text-neutral-500" : "text-neutral-500"}`}>
+                {project.subtitle}
+              </p>
+            )}
+            <div className="flex flex-wrap gap-1.5">
               {project.stack.map((t) => (
-                <span key={t} role="listitem" className="tag text-accent-glow border-ink-600">
-                  {t}
-                </span>
+                <span key={t} className="tag tag-primary">{t}</span>
               ))}
             </div>
           </div>
 
           {/* Problem / Solution */}
           <div className="p-6 lg:p-8 grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 flex-1">
-            <div>
-              <p className="font-mono text-xs text-stone-600 uppercase tracking-wider mb-2">
-                Problem
-              </p>
-              <p className="text-stone-400 text-sm leading-relaxed">
-                {project.problem}
-              </p>
-            </div>
-            <div>
-              <p className="font-mono text-xs text-stone-600 uppercase tracking-wider mb-2">
-                Solution
-              </p>
-              <p className="text-stone-400 text-sm leading-relaxed">
-                {project.solution}
-              </p>
-            </div>
+            {[
+              { label: "Problem", text: project.problem },
+              { label: "Solution", text: project.solution },
+            ].map(({ label, text }) => (
+              <div key={label}>
+                <p className={`font-mono text-[11px] uppercase tracking-wider mb-2
+                  ${isDark ? "text-neutral-600" : "text-neutral-400"}`}>
+                  {label}
+                </p>
+                <p className={`text-sm leading-relaxed
+                  ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>
+                  {text}
+                </p>
+              </div>
+            ))}
           </div>
 
-          {/* Toggle button — bottom of right column */}
-          <div className="px-6 lg:px-8 py-4 border-t border-wire">
+          {/* Toggle */}
+          <div className={`px-6 lg:px-8 py-4 border-t ${isDark ? "border-wire" : "border-wire-light"}`}>
             <button
               onClick={() => setExpanded(!expanded)}
-              className="font-mono text-xs text-stone-500 hover:text-accent-glow transition-colors flex items-center gap-2 tracking-wider"
+              className={`font-mono text-[11px] tracking-wider transition-colors flex items-center gap-2
+                ${isDark ? "text-neutral-600 hover:text-neutral-300" : "text-neutral-400 hover:text-neutral-700"}`}
               aria-expanded={expanded}
               aria-controls={`details-${project.id}`}
             >
-              {expanded ? "— Collapse Details" : "+ Show Technical Details"}
+              {expanded ? "Collapse Details" : "Show Technical Details"}
             </button>
           </div>
         </div>
       </div>
 
-      {/* ── EXPANDABLE DETAILS (full-width) ───────────────────────────────── */}
+      {/* Expanded details */}
       {expanded && (
-        <div
-          id={`details-${project.id}`}
-          className="border-t border-wire px-6 lg:px-8 py-8 grid sm:grid-cols-2 gap-8 bg-ink-900/50"
-        >
-          <div>
-            <p className="font-mono text-xs text-stone-600 uppercase tracking-wider mb-4">
-              Key Features
-            </p>
-            <ul className="space-y-3">
-              {project.features.map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-stone-400">
-                  <span className="text-accent-glow mt-0.5 text-xs flex-shrink-0" aria-hidden="true">
-                    ◆
-                  </span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="font-mono text-xs text-stone-600 uppercase tracking-wider mb-4">
-              Technical Highlights
-            </p>
-            <ul className="space-y-3">
-              {project.highlights.map((h) => (
-                <li key={h} className="flex items-start gap-3 text-sm text-stone-400">
-                  <span className="text-accent-glow mt-0.5 text-xs flex-shrink-0" aria-hidden="true">
-                    ◆
-                  </span>
-                  {h}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div id={`details-${project.id}`}
+             className={`border-t px-6 lg:px-8 py-8 grid sm:grid-cols-2 gap-8
+               ${isDark ? "border-wire bg-ink-900/60" : "border-wire-light bg-paper-100/60"}`}>
+          {[
+            { label: "Key Features", items: project.features },
+            { label: "Technical Highlights", items: project.highlights },
+          ].map(({ label, items }) => (
+            <div key={label}>
+              <p className={`font-mono text-[11px] uppercase tracking-wider mb-4
+                ${isDark ? "text-neutral-600" : "text-neutral-400"}`}>
+                {label}
+              </p>
+              <ul className="space-y-3">
+                {items.map((item) => (
+                  <li key={item} className={`flex items-start gap-3 text-sm leading-relaxed
+                    ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>
+                    <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ backgroundColor: "var(--primary)" }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       )}
     </article>
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Projects section
-// ─────────────────────────────────────────────────────────────────────────────
 export default function Projects() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <section id="projects" className="py-28 border-t border-wire">
+    <section id="projects"
+      className={`py-32 border-t transition-colors duration-300
+        ${isDark ? "border-wire bg-ink-950" : "border-wire-light bg-paper-50"}`}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14">
-          <p className="section-label mb-4">Projects</p>
-          <h2 className="section-title text-3xl sm:text-4xl lg:text-5xl max-w-xl">
+        <div className="mb-16">
+          <p className="section-label mb-5">Projects</p>
+          <h2 className={`section-title text-4xl lg:text-5xl max-w-xl
+            ${isDark ? "text-neutral-100" : "text-neutral-900"}`}>
             Selected work.<br />
-            <span className="text-stone-500">Architecture documented.</span>
+            <span className={isDark ? "text-neutral-500" : "text-neutral-400"}>Architecture documented.</span>
           </h2>
-          <p className="text-stone-500 text-sm mt-4 font-mono">
-            Click any screenshot to view full size. Expand each card for technical details.
+          <p className={`text-sm mt-4 font-mono ${isDark ? "text-neutral-600" : "text-neutral-400"}`}>
+            Use ← → keys or arrow buttons to navigate screenshots. Expand each card for technical details.
           </p>
         </div>
-
         <div className="space-y-6">
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />

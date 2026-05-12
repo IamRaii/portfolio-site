@@ -1,40 +1,51 @@
 import { techStack } from "../data/portfolio";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useTheme } from "../context/ThemeContext";
 
-const categoryColors = {
-  Backend: "text-blue-400",
-  Frontend: "text-purple-400",
-  Mobile: "text-emerald-400",
-  Tools: "text-amber-400",
-};
+const categories = [
+  { key: "Backend",  label: "Backend" },
+  { key: "Frontend", label: "Frontend" },
+  { key: "Mobile",   label: "Mobile" },
+  { key: "Tools",    label: "Tools" },
+];
 
 export default function Stack() {
-  const ref = useScrollReveal();
+  const { ref, revealed } = useScrollReveal();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
-    <section id="stack" className="py-28 border-t border-wire bg-ink-900">
+    <section id="stack"
+      className={`py-32 border-t transition-colors duration-300
+        ${isDark ? "bg-ink-900 border-wire" : "bg-paper-100 border-wire-light"}`}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14">
-          <p className="section-label mb-4">Tech Stack</p>
-          <h2 className="section-title text-3xl sm:text-4xl lg:text-5xl">
+
+        <div className="mb-16">
+          <p className="section-label mb-5">Tech Stack</p>
+          <h2 className={`section-title text-4xl lg:text-5xl
+            ${isDark ? "text-neutral-100" : "text-neutral-900"}`}>
             Tools & technologies<br />
-            <span className="text-stone-500">I work with.</span>
+            <span className={isDark ? "text-neutral-500" : "text-neutral-400"}>I work with.</span>
           </h2>
         </div>
 
-        <div ref={ref} className="fade-up grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-wire">
-          {Object.entries(techStack).map(([category, items]) => (
-            <div key={category} className="bg-ink-900 p-8">
-              <div className="mb-6">
-                <p className={`font-mono text-xs tracking-[0.2em] uppercase mb-1 ${categoryColors[category]}`}>
-                  {category}
-                </p>
-                <div className="h-px w-8 bg-wire" />
-              </div>
+        <div ref={ref}
+             className={`${revealed ? "fade-up visible" : "fade-up"} grid sm:grid-cols-2 lg:grid-cols-4 gap-px
+               ${isDark ? "bg-wire" : "bg-wire-light"}`}>
+          {categories.map(({ key, label }) => (
+            <div key={key}
+                 className={`p-8 ${isDark ? "bg-ink-900" : "bg-paper-100"}`}>
+              <p className="font-mono text-[11px] font-medium tracking-[0.18em] uppercase mb-6"
+                 style={{ color: "var(--primary)" }}>
+                {label}
+              </p>
               <ul className="space-y-3">
-                {items.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-stone-300 text-sm font-body">
-                    <span className="w-1 h-1 rounded-full bg-ink-500 flex-shrink-0" />
+                {(techStack[key] || []).map((item) => (
+                  <li key={item}
+                      className={`flex items-center gap-3 text-sm
+                        ${isDark ? "text-neutral-300" : "text-neutral-700"}`}>
+                    <span className="w-1 h-1 rounded-full flex-shrink-0 opacity-50"
+                          style={{ backgroundColor: "var(--primary)" }} />
                     {item}
                   </li>
                 ))}
@@ -43,9 +54,9 @@ export default function Stack() {
           ))}
         </div>
 
-        {/* Learning note */}
-        <p className="mt-10 text-stone-600 font-mono text-xs text-right tracking-wider">
-          continuously expanding — currently exploring React and Tailwind CSS
+        <p className={`mt-8 font-mono text-[11px] text-right tracking-wider
+          ${isDark ? "text-neutral-700" : "text-neutral-400"}`}>
+          Continuously expanding. Currently exploring React and Tailwind CSS
         </p>
       </div>
     </section>

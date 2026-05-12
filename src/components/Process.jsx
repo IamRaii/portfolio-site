@@ -1,61 +1,84 @@
 import { process } from "../data/portfolio";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Process() {
-  const ref = useScrollReveal();
+  const { ref, revealed } = useScrollReveal();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
-    <section id="process" className="py-28 border-t border-wire">
+    <section id="process"
+      className={`py-32 border-t transition-colors duration-300
+        ${isDark ? "bg-ink-950 border-wire" : "bg-paper-50 border-wire-light"}`}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14">
-          <p className="section-label mb-4">Process</p>
-          <h2 className="section-title text-3xl sm:text-4xl lg:text-5xl max-w-xl">
+
+        <div className="mb-16">
+          <p className="section-label mb-5">Process</p>
+          <h2 className={`section-title text-4xl lg:text-5xl max-w-lg
+            ${isDark ? "text-neutral-100" : "text-neutral-900"}`}>
             How a project<br />
-            <span className="text-stone-500">actually gets built.</span>
+            <span className={isDark ? "text-neutral-500" : "text-neutral-400"}>actually gets built.</span>
           </h2>
         </div>
 
-        <div ref={ref} className="fade-up">
-          {/* Desktop: horizontal timeline */}
-          <div className="hidden lg:grid grid-cols-6 gap-px bg-wire mb-px">
+        <div ref={ref} className={`${revealed ? "fade-up visible" : "fade-up"}`}>
+
+          {/* Desktop timeline */}
+          <div className={`hidden lg:grid grid-cols-6 gap-px ${isDark ? "bg-wire" : "bg-wire-light"}`}>
             {process.map((step) => (
-              <div key={step.step} className="bg-ink-950 px-6 pt-6 pb-2">
-                <span className="font-mono text-xs text-stone-600 tracking-widest">{step.step}</span>
-              </div>
-            ))}
-          </div>
-          <div className="hidden lg:grid grid-cols-6 gap-px bg-wire">
-            {process.map((step) => (
-              <div key={step.step} className="bg-ink-950 px-6 pb-8 pt-4">
-                <h3 className="font-display font-semibold text-stone-200 text-sm mb-3 leading-snug">
+              <div key={step.step}
+                   className={`px-6 py-8 ${isDark ? "bg-ink-950" : "bg-paper-50"}`}>
+                <div className="font-mono text-[11px] tracking-widest mb-4"
+                     style={{ color: "var(--primary)", opacity: 0.7 }}>
+                  {step.step}
+                </div>
+                <h3 className={`font-semibold text-sm mb-3 tracking-tight leading-snug
+                  ${isDark ? "text-neutral-200" : "text-neutral-800"}`}>
                   {step.title}
                 </h3>
-                <p className="text-stone-500 text-xs leading-relaxed">{step.description}</p>
+                <p className={`text-xs leading-relaxed
+                  ${isDark ? "text-neutral-600" : "text-neutral-500"}`}>
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
 
-          {/* Mobile: vertical */}
-          <div className="lg:hidden space-y-0 border border-wire">
+          {/* Mobile */}
+          <div className={`lg:hidden rounded-lg overflow-hidden border
+            ${isDark ? "border-wire" : "border-wire-light"}`}>
             {process.map((step, i) => (
-              <div
-                key={step.step}
-                className={`flex gap-6 p-6 ${i < process.length - 1 ? "border-b border-wire" : ""}`}
-              >
-                <span className="font-mono text-xs text-stone-600 w-6 flex-shrink-0 mt-1">{step.step}</span>
+              <div key={step.step}
+                   className={`flex gap-5 px-6 py-5
+                     ${i < process.length - 1 ? `border-b ${isDark ? "border-wire" : "border-wire-light"}` : ""}
+                     ${isDark ? "bg-ink-900" : "bg-white"}`}>
+                <span className="font-mono text-[11px] w-5 flex-shrink-0 mt-0.5 font-medium"
+                      style={{ color: "var(--primary)" }}>
+                  {step.step}
+                </span>
                 <div>
-                  <h3 className="font-display font-semibold text-stone-200 text-sm mb-2">{step.title}</h3>
-                  <p className="text-stone-500 text-sm leading-relaxed">{step.description}</p>
+                  <h3 className={`font-semibold text-sm mb-1.5 tracking-tight
+                    ${isDark ? "text-neutral-200" : "text-neutral-800"}`}>
+                    {step.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed
+                    ${isDark ? "text-neutral-500" : "text-neutral-600"}`}>
+                    {step.description}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Philosophy note */}
-        <div className="mt-12 border border-wire p-6 bg-ink-900">
-          <p className="font-mono text-xs text-stone-500 leading-relaxed">
-            <span className="text-accent-glow"> note:</span> This process isn't rigid. Every project has different constraints. What stays constant is the order of thinking — design decisions before development decisions, always.
+        {/* Note */}
+        <div className={`mt-10 rounded-lg border px-6 py-4
+          ${isDark ? "border-wire bg-ink-900" : "border-wire-light bg-paper-100"}`}>
+          <p className={`font-mono text-xs leading-relaxed
+            ${isDark ? "text-neutral-600" : "text-neutral-500"}`}>
+            <span style={{ color: "var(--primary)", fontWeight: 500 }}>Note: </span>
+            This process isn't rigid. Every project has different constraints. What stays constant is the order of thinking: design decisions before development decisions, always.
           </p>
         </div>
       </div>

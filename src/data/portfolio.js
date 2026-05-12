@@ -1,212 +1,199 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // PROJECT IMAGES
 // ─────────────────────────────────────────────────────────────────────────────
-// All project screenshots live in: /public/images/projects/
+// All screenshots live in: /public/images/projects/
 //
-// HOW TO REPLACE A PLACEHOLDER:
-//   1. Drop your screenshot into /public/images/projects/
-//   2. Update the `src` filename in the images[] array below
-//   3. The layout updates automatically — no other changes needed.
+// HOW TO ADD / REPLACE IMAGES:
+//   1. Drop your .png / .jpg / .webp files into /public/images/projects/
+//   2. Update the `src` field below to match the filename
+//   3. The gallery (arrows, thumbnails, modal) updates automatically
 //
-// NAMING CONVENTION (recommended):
-//   project1-main.png      ← Featured image (shown large, shown first)
-//   project1-dashboard.png ← Secondary thumbnail
-//
-// SUPPORTED FORMATS: .png  .jpg  .webp  .svg
-// RECOMMENDED SIZE:  1200×700px (16:9) for main; 800×500px for thumbnails
+// ADD MORE IMAGES: just append objects to the images[] array —
+//   the gallery handles any number of slides.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const projects = [
+  // ── PROJECT 1 ──────────────────────────────────────────────────────────────
   {
     id: "01",
-    title: "SwiftRent: A Peer-to-Peer Car Rental Platform",
-    category: "Mobile Application",
+    title: "SwiftRent",
+    subtitle: "Peer-to-Peer Car Rental Platform",
+    category: "Mobile + Web Application",
 
-    // ── IMAGES ──────────────────────────────────────────────────────────────
-    // For mobile apps, portrait screenshots (9:16) work best.
-    // You can use a device frame mockup as your screenshot.
+    // ── IMAGES ────────────────────────────────────────────────────────────
+    // Replace src values with your actual screenshot filenames.
+    // Suggested naming: swiftrent-feed.png, swiftrent-listing.png, etc.
+    // ──────────────────────────────────────────────────────────────────────
     images: [
       {
-        src: "/images/projects/project1-main.png",
-        alt: "SwiftRent app — main interface showing available cars for rent",
-        caption: "Main Interface",
+        src: "/images/projects/swiftrent-01.png",
+        alt: "SwiftRent rental feed showing available vehicles with search and filter",
+        caption: "Rental Feed",
       },
       {
-        src: "/images/projects/project1-login.png",
-        alt: "SwiftRent app — login screen",
-        caption: "Login",
+        src: "/images/projects/swiftrent-02.png",
+        alt: "SwiftRent vehicle listing detail with booking and signed contract flow",
+        caption: "Listing Detail & Contract",
       },
       {
-        src: "/images/projects/project1-home.png",
-        alt: "SwiftRent app — home screen with side bars and car listings",
-        caption: "Home",
+        src: "/images/projects/swiftrent-03.png",
+        alt: "SwiftRent in-app messaging between renter and vehicle owner",
+        caption: "In-App Messaging",
       },
       {
-        src: "/images/projects/project1-assets.png",
-        alt: "SwiftRent app — admin dashboard showing inventory and sales overview",
-        caption: "Assets",
+        src: "/images/projects/swiftrent-04.png",
+        alt: "SwiftRent transaction dashboard with real-time status and KPI overview",
+        caption: "Transaction Dashboard",
       },
       {
-        src: "/images/projects/project1-listing.png",
-        alt: "SwiftRent app — user management screen",
-        caption: "Listing",
-      },
-      {
-        src: "/images/projects/project1-find.png",
-        alt: "SwiftRent app — branch management screen",
-        caption: "Find",
-      },
-      {
-        src: "/images/projects/project1-inquiry.png",
-        alt: "SwiftRent app — user management screen",
-        caption: "Inquiry",
-      },
-      {
-        src: "/images/projects/project1-contract.png",
-        alt: "SwiftRent app — branch management screen",
-        caption: "Contract",
+        src: "/images/projects/swiftrent-05.png",
+        alt: "SwiftRent admin web panel for user verification and listing approval",
+        caption: "Admin Panel",
       },
     ],
-    // ── END IMAGES ──────────────────────────────────────────────────────────
 
     problem:
-      "A service company's field technicians had no reliable way to log job completions, capture client signatures, or access job details without a network connection.",
+      "Car owners had idle vehicles with no reliable way to monetize them, while renters lacked a trustworthy platform for short-term rentals outside of expensive agencies. Existing solutions had no contract enforcement, no identity verification, and no real-time coordination between parties.",
     solution:
-      "Developed a Flutter mobile application backed by Firebase, with full offline capability. Job data syncs automatically when connectivity is restored.",
-    stack: ["Flutter", "Firebase Firestore", "Firebase Auth", "Firebase Storage"],
+      "Built SwiftRent as a Flutter mobile app backed by Firebase, paired with a PHP/REST API admin web panel. The platform supports dual-role users (owners and renters), a full verification pipeline, digitally signed rental contracts, real-time transaction tracking, and location-based browsing.",
+
+    stack: ["Flutter", "Firebase", "PHP", "REST API", "Firestore", "Firebase Auth"],
+
     features: [
-      "Offline-first architecture with local data persistence",
-      "Real-time job assignment updates from dispatch",
-      "Digital client signature capture with timestamp",
-      "Photo documentation with cloud storage sync",
-      "Push notifications for new assignments",
+      "Dual-role system: users can list vehicles as owners and rent as tenants within the same account",
+      "User verification gate: identity must be verified before renting or listing",
+      "Feed-style browsing with search, filters, and save-to-assets (draft/wishlist)",
+      "In-app messaging between renters and owners",
+      "Digitally signed rental contracts with exportable hardcopy PDF",
+      "Real-time transaction status tracking and personal KPI dashboard",
+      "Location services integration for proximity-based listing discovery",
+      "Mutual rating and review system post-transaction",
+      "Customer support channel within the app",
+      "Admin web panel: user approval, listing moderation, transaction management",
     ],
+
     highlights: [
-      "Firestore offline persistence with manual conflict resolution",
-      "Firebase Auth with custom claims for role enforcement",
-      "Modular clean architecture (feature-first folder structure)",
-      "Image compression before upload — 60% storage cost reduction",
+      "Firebase Auth with custom claims enforcing role and verification status at the data layer",
+      "Firestore security rules prevent unverified users from initiating transactions server-side, not just UI-gated",
+      "Contract generation uses a structured data model; PDF export is deterministic and tamper-evident",
+      "Real-time listeners on transaction documents; status updates propagate to both parties instantly",
+      "Admin panel built on PHP REST API with JWT auth; completely decoupled from the mobile client",
+      "Clean architecture on the Flutter side using a feature-first structure, with each domain isolated into its own data, domain, and presentation layers",
     ],
   },
+
+  // ── PROJECT 2 ──────────────────────────────────────────────────────────────
   {
     id: "02",
-    title: "Order & Inventory Management System",
+    title: "Mieruka Board",
+    subtitle: "Centralized KPI & Analytics Dashboard",
     category: "Web Application",
 
-    // ── IMAGES ──────────────────────────────────────────────────────────────
-    // The first image is the featured/hero image (shown largest).
-    // Add or remove objects to control how many thumbnails appear.
     images: [
       {
-        // Recommended: full dashboard view — the main admin panel
-        src: "/images/projects/project2-main.png",
-        alt: "Business Operations Dashboard — main admin panel showing inventory and sales overview",
-        caption: "Admin Dashboard",
+        src: "/images/projects/mieruka-01.png",
+        alt: "Mieruka Board department-level KPI dashboard with production metrics and charts",
+        caption: "Department KPI Dashboard",
       },
       {
-        // Replace this image with your actual project screenshot
-        // Recommended: a report or chart-heavy screen
-        src: "/images/projects/project2-dashboard.png",
-        alt: "Business Operations Dashboard — sales report screen with data visualization",
-        caption: "Sales Report",
+        src: "/images/projects/mieruka-02.png",
+        alt: "Mieruka Board on-time vs delayed performance tracking chart",
+        caption: "On-Time vs Delayed Performance",
       },
       {
-        src: "/images/projects/project2-orders.png",
-        alt: "Business Operations Dashboard — orders screen with data visualization",
-        caption: "Orders",
-      },
-      {
-        // Replace this image with your actual project screenshot
-        // Recommended: full dashboard view — the main admin panel
-        src: "/images/projects/project2-stocks.png",
-        alt: "Business Operations Dashboard — main admin panel showing inventory and sales overview",
-        caption: "Admin Dashboard",
-      },
-      {
-        // Replace this image with your actual project screenshot
-        // Recommended: a report or chart-heavy screen
-        src: "/images/projects/project2-users.png",
-        alt: "Business Operations Dashboard — user management screen",
-        caption: "User Management",
-      },
-      {
-        src: "/images/projects/project2-branch.png",
-        alt: "Business Operations Dashboard — branch management screen",
-        caption: "Branch Management",
+        src: "/images/projects/mieruka-03.png",
+        alt: "Mieruka Board perfect attendance KPI and HR metrics panel",
+        caption: "Attendance & HR KPIs",
       },
     ],
-    // ── END IMAGES ──────────────────────────────────────────────────────────
 
     problem:
-      "A mid-sized retail business was managing inventory, sales tracking, and staff scheduling across disconnected spreadsheets. Data inconsistencies were causing stockouts and payroll errors.",
+      "A manufacturing company was tracking department KPIs across disconnected spreadsheets and manual reports. There was no single view of performance across departments, making it difficult for management to identify bottlenecks or compare metrics in real time.",
     solution:
-      "Built a centralized web-based operations dashboard with role-based access control, real-time inventory tracking, and automated report generation.",
-    stack: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
+      "Built Mieruka Board as a centralized PHP/SQL web application that gives each department its own live dashboard. Production metrics, attendance, on-time delivery performance, and other KPIs are visualized using AmCharts and updated from a shared SQL backend.",
+
+    stack: ["PHP", "MySQL", "AmCharts", "JavaScript", "SQL"],
+
     features: [
-      "Role-based access control (Admin, Manager, Staff)",
-      "Inventory tracking with low-stock alerts",
-      "Sales reporting with exportable CSV/PDF",
-      "Staff scheduling and shift management",
-      "Audit log for all data modifications",
+      "Dedicated dashboard per department, each team sees only their relevant KPIs",
+      "Production performance metrics with trend visualization",
+      "On-time vs delayed delivery tracking",
+      "Perfect attendance KPI with period-based filtering",
+      "Cross-department comparison views for management",
+      "Chart-based data visualization using AmCharts (bar, line, pie, gauge)",
+      "Period selectors for daily, weekly, monthly, and custom date ranges",
     ],
+
     highlights: [
-      "Normalized relational schema across 12 tables",
-      "Parameterized queries throughout — zero SQL injection surface",
-      "Session-based auth with CSRF token validation",
-      "Sub-200ms page load with indexed query optimization",
+      "SQL views and stored procedures isolate KPI calculations from the presentation layer",
+      "AmCharts configured with dynamic data binding; charts re-render on filter change without a page reload",
+      "Role-based access: department heads see only their scope; management sees aggregate views",
+      "Indexed queries on time-series data ensure consistent load times across large historical datasets",
+      "Schema designed for extensibility; adding a new KPI type requires only a new view with no structural changes",
     ],
   },
+
+  // ── PROJECT 3 ──────────────────────────────────────────────────────────────
   {
     id: "03",
-    title: "Multi-Tenant Appointment System",
+    title: "Order & Inventory Management System",
+    subtitle: "POS and Stock Control for Retail",
     category: "Web Application",
 
-    // ── IMAGES ──────────────────────────────────────────────────────────────
     images: [
       {
-        // Replace this image with your actual project screenshot
-        // Recommended: the patient-facing booking portal
-        src: "/images/projects/project3-main.svg",
-        alt: "Multi-Tenant Appointment System — patient self-booking portal showing available appointment slots",
-        caption: "Patient Booking Portal",
+        src: "/images/projects/oims-01.png",
+        alt: "Order and Inventory Management System POS interface for cashier with product search and cart",
+        caption: "Point of Sale",
       },
       {
-        // Replace this image with your actual project screenshot
-        // Recommended: branch admin panel or analytics dashboard
-        src: "/images/projects/project3-admin.svg",
-        alt: "Multi-Tenant Appointment System — branch admin panel with scheduling and analytics",
-        caption: "Branch Admin Panel",
+        src: "/images/projects/oims-02.png",
+        alt: "Order and Inventory Management System inventory stocks view with low-stock indicators",
+        caption: "Inventory & Stocks",
+      },
+      {
+        src: "/images/projects/oims-03.png",
+        alt: "Order and Inventory Management System admin dashboard with sales history and analytics",
+        caption: "Admin Dashboard",
       },
     ],
-    // ── END IMAGES ──────────────────────────────────────────────────────────
 
     problem:
-      "A clinic network needed a single platform where multiple branches could manage patient appointments independently, without access to each other's data.",
+      "A perfume retail business was processing orders manually with no reliable inventory tracking. Cashiers had no dedicated interface, stock levels were unknown until physically checked, and there was no transaction history for reconciliation.",
     solution:
-      "Architected a multi-tenant appointment system with branch-level data isolation, patient self-booking, and an admin panel for scheduling management.",
-    stack: ["PHP", "MySQL", "REST API", "JavaScript"],
+      "Built a web-based Order & Inventory Management System with a POS interface for cashiers, real-time stock tracking, and a full admin dashboard. The system uses a PHP/REST API backend with an XML-based database and enforces role separation between admin and cashier.",
+
+    stack: ["PHP", "REST API", "XML Database", "JavaScript"],
+
     features: [
-      "Branch-scoped data isolation at the database level",
-      "Patient self-registration and appointment booking",
-      "SMS/email appointment reminders",
-      "Admin dashboard per branch with analytics",
-      "Exportable patient and appointment records",
+      "Point-of-sale interface optimized for cashier workflow with product search, cart, and checkout",
+      "Real-time inventory tracking with automatic stock deduction on sale",
+      "Low-stock alerts and stock history log",
+      "Order history with per-transaction detail and receipt generation",
+      "Role-based access with two roles: Admin for full control and Cashier for POS only",
+      "Admin dashboard with sales summary, top products, and date-range filtering",
+      "Product management with the ability to add, edit, categorize, and archive items",
     ],
+
     highlights: [
-      "Tenant ID enforced at every query — no cross-tenant data leak possible",
-      "RESTful API with JWT authentication",
-      "Indexed scheduling queries — handles 10,000+ records without degradation",
-      "Input sanitization and server-side validation on all endpoints",
+      "XML serves as the persistence layer, structured with XPath queries and schema validation to enforce data integrity",
+      "REST API design separates the data layer from the UI; cashier and admin interfaces consume the same endpoints",
+      "Role enforcement at the API level ensures cashier tokens cannot access admin routes regardless of UI state",
+      "Inventory deduction and order creation handled in a single atomic operation to prevent stock inconsistency",
+      "Input validation and sanitization on all endpoints eliminates any direct XML injection surface",
     ],
   },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SERVICES
+// ─────────────────────────────────────────────────────────────────────────────
 export const services = [
   {
     id: "01",
     title: "Web Application Development",
     description:
-      "Backend-focused web systems built for reliability and growth. Whether it's an internal business tool, a client-facing platform, or an API layer — the architecture is designed to scale without accumulating technical debt.",
+      "Backend-focused web systems built for reliability and growth. Whether it is an internal business tool, a client-facing platform, or an API layer, the architecture is designed to scale without accumulating technical debt.",
     items: [
       "Custom PHP web applications",
       "MySQL schema design and optimization",
@@ -219,9 +206,9 @@ export const services = [
     id: "02",
     title: "Mobile App Development",
     description:
-      "Cross-platform mobile applications built with Flutter and Firebase. Clean architecture from day one — not bolted on later. Apps are built to work offline, sync reliably, and handle real-world conditions.",
+      "Cross-platform mobile applications built with Flutter and Firebase. Clean architecture from day one, not bolted on later. Apps are built to work offline, sync reliably, and handle real-world conditions.",
     items: [
-      "Flutter mobile applications",
+      "Flutter iOS & Android applications",
       "Firebase backend integration",
       "Offline-first data architecture",
       "Real-time sync and push notifications",
@@ -243,13 +230,19 @@ export const services = [
   },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// TECH STACK
+// ─────────────────────────────────────────────────────────────────────────────
 export const techStack = {
-  Backend: ["PHP", "MySQL", "REST API"],
-  Frontend: ["HTML/CSS", "JavaScript", "Bootstrap"],
-  Mobile: ["Flutter", "Dart", "Firebase Auth", "Firestore", "Firebase Storage"],
-  Tools: ["VS Code", "Git", "GitHub", "Figma", "Canva"],
+  Backend:  ["PHP", "MySQL", "REST API", "XML"],
+  Frontend: ["HTML/CSS", "JavaScript", "Bootstrap", "AmCharts", "DataTables"],
+  Mobile:   ["Flutter", "Dart", "Firebase Auth", "Firestore", "Firebase Storage"],
+  Tools:    ["VS Code", "Git", "GitHub", "Figma", "Canva"],
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// DEVELOPMENT PROCESS
+// ─────────────────────────────────────────────────────────────────────────────
 export const process = [
   {
     step: "01",
@@ -267,13 +260,13 @@ export const process = [
     step: "03",
     title: "UI Planning",
     description:
-      "Map out user flows and interface structure. Focus on clarity and task efficiency — screens should match how users actually think.",
+      "Map out user flows and interface structure. Focus on clarity and task efficiency so that screens match how users actually think.",
   },
   {
     step: "04",
     title: "Development",
     description:
-      "Build features iteratively with clean, readable code. Security practices — validation, parameterized queries, auth checks — are applied from the start.",
+      "Build features iteratively with clean, readable code. Security practices including validation, parameterized queries, and auth checks are applied from the start.",
   },
   {
     step: "05",
