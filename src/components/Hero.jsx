@@ -52,7 +52,7 @@ function ProfilePhoto({ isDark }) {
         {/* ── DARK MODE: default ── */}
         <img
           src="/images/profile/profile-dark.jpg"
-          alt="Developer profile photo"
+          alt="Developer profile"
           width="272"
           height="272"
           loading="eager"
@@ -82,7 +82,7 @@ function ProfilePhoto({ isDark }) {
         {/* ── LIGHT MODE: default ── */}
         <img
           src="/images/profile/profile-light.jpg"
-          alt="Developer profile photo"
+          alt="Developer profile"
           width="272"
           height="272"
           loading="eager"
