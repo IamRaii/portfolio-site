@@ -290,7 +290,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT: profile photo with hover swap */}
+          {/* RIGHT: profile photo with hover switch */}
           <div className="hidden lg:flex justify-center">
             <ProfilePhoto isDark={isDark} />
           </div>
