@@ -26,29 +26,19 @@ export const projects = [
     // ──────────────────────────────────────────────────────────────────────
     images: [
       {
-        src: "/images/projects/swiftrent-01.png",
+        src: "/images/projects/project1-home.png",
         alt: "SwiftRent rental feed showing available vehicles with search and filter",
         caption: "Rental Feed",
       },
       {
-        src: "/images/projects/swiftrent-02.png",
+        src: "/images/projects/project1-inquiry.png",
         alt: "SwiftRent vehicle listing detail with booking and signed contract flow",
         caption: "Listing Detail & Contract",
       },
       {
-        src: "/images/projects/swiftrent-03.png",
+        src: "/images/projects/project1-find.png",
         alt: "SwiftRent in-app messaging between renter and vehicle owner",
         caption: "In-App Messaging",
-      },
-      {
-        src: "/images/projects/swiftrent-04.png",
-        alt: "SwiftRent transaction dashboard with real-time status and KPI overview",
-        caption: "Transaction Dashboard",
-      },
-      {
-        src: "/images/projects/swiftrent-05.png",
-        alt: "SwiftRent admin web panel for user verification and listing approval",
-        caption: "Admin Panel",
       },
     ],
 
@@ -91,17 +81,17 @@ export const projects = [
 
     images: [
       {
-        src: "/images/projects/mieruka-01.png",
+        src: "/images/projects/project2-departments.png",
         alt: "Mieruka Board department-level KPI dashboard with production metrics and charts",
         caption: "Department KPI Dashboard",
       },
       {
-        src: "/images/projects/mieruka-02.png",
+        src: "/images/projects/project2-ontime.png",
         alt: "Mieruka Board on-time vs delayed performance tracking chart",
         caption: "On-Time vs Delayed Performance",
       },
       {
-        src: "/images/projects/mieruka-03.png",
+        src: "/images/projects/project2-attendance.png",
         alt: "Mieruka Board perfect attendance KPI and HR metrics panel",
         caption: "Attendance & HR KPIs",
       },
@@ -142,17 +132,17 @@ export const projects = [
 
     images: [
       {
-        src: "/images/projects/oims-01.png",
+        src: "/images/projects/project3-orders.png",
         alt: "Order and Inventory Management System POS interface for cashier with product search and cart",
         caption: "Point of Sale",
       },
       {
-        src: "/images/projects/oims-02.png",
+        src: "/images/projects/project3-stocks.png",
         alt: "Order and Inventory Management System inventory stocks view with low-stock indicators",
         caption: "Inventory & Stocks",
       },
       {
-        src: "/images/projects/oims-03.png",
+        src: "/images/projects/project3-dashboard.png",
         alt: "Order and Inventory Management System admin dashboard with sales history and analytics",
         caption: "Admin Dashboard",
       },
