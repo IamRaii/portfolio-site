@@ -267,7 +267,7 @@ export default function Hero() {
                 ${isDark ? "border-wire" : "border-wire-light"}`}
             >
               {[
-                { value: "4th Year", label: "IT Student" },
+                { value: "Graduate", label: "IT Student" },
                 { value: "PHP + SQL", label: "Web Stack" },
                 { value: "Flutter",   label: "Mobile Stack" },
                 { value: "Firebase",  label: "Cloud Backend" },
